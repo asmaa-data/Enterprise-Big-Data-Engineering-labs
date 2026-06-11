@@ -1,0 +1,35 @@
+## Configuring Components
+a1.sources=source1
+a1.channels=channel1
+a1.sinks=sink1
+
+#source1
+a1.sources.source1.type = spooldir
+a1.sources.source1.channels = channel1
+a1.sources.source1.spoolDir = /home/bigdata/dir_to_hdfs
+a1.sources.source1.fileHeader = true
+a1.sources.source1.deletePolicy = immediate
+
+#interceptors
+a1.sources.source1.interceptors = i1
+a1.sources.source1.interceptors.i1.type = timestamp
+
+
+#channel 
+a1.channels = channel1
+a1.channels.channel1.type = memory
+a1.channels.channel1.capacity = 10000
+a1.channels.channel1.transactionCapacity = 10000
+a1.channels.channel1.byteCapacityBufferPercentage = 20
+a1.channels.channel1.byteCapacity = 800000
+
+#sink
+a1.channels = channel1
+a1.sinks = sink1
+a1.sinks.sink1.type = hdfs
+a1.sinks.sink1.channel = channel1
+a1.sinks.sink1.hdfs.path = /flume/%Y-%m-%d/%H%M/%S
+a1.sinks.sink1.hdfs.filePrefix = events-
+a1.sinks.sink1.hdfs.round = true
+a1.sinks.sink1.hdfs.roundValue = 10
+a1.sinks.sink1.hdfs.roundUnit = minute
